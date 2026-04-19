@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="app.HomePage"
+             Title="Home">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="↻" Order="Secondary" Priority="0" Clicked="OnRefreshClicked" />
+    </ContentPage.ToolbarItems>
+
+    <ScrollView>
+        <VerticalStackLayout Padding="24" Spacing="12">
+            <Label x:Name="WelcomeLabel" FontSize="24" FontAttributes="Bold" />
+            <Label x:Name="UserIdLabel" />
+            <Label x:Name="DniLabel" />
+            <Label x:Name="FullNameLabel" />
+            <Label x:Name="PointsLabel" />
+            <Label x:Name="RoleLabel" />
+            <Button Text="Ir a tienda de Rewards" Clicked="OnRewardsClicked" />
+            <Button Text="Cerrar sesión" Clicked="OnLogoutClicked" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

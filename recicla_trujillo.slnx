@@ -1,0 +1,11 @@
+<Solution>
+  <Folder Name="/Elementos de la solución/">
+    <File Path="architecture.md" />
+  </Folder>
+  <Project Path="admin/admin.csproj" Id="32ebbdb8-c757-494c-855a-7c4eb83a4b5c" />
+  <Project Path="api/api.csproj" />
+  <Project Path="app/app.csproj" Id="4a93f022-df53-4b22-99bd-d6b1e7ab0bd4">
+    <Deploy Solution="Debug|*" />
+  </Project>
+  <Project Path="shared/shared.csproj" Id="b0ac7afa-2b4c-434e-bc43-abe9156c9ec4" />
+</Solution>
