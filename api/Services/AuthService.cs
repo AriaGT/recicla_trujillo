@@ -2,6 +2,7 @@
 using api.Models;
 using Microsoft.EntityFrameworkCore;
 using shared;
+using shared.Enums;
 
 namespace api.Services;
 
@@ -45,7 +46,7 @@ public class AuthService
         {
             Dni = dni,
             FullName = fullName,
-            Role = UserRole.Citizen
+            Role = UserRoleEnums.Citizen
         };
 
         _context.Users.Add(user);

@@ -1,7 +1,7 @@
 ﻿using api.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using shared;
+using shared.Enums;
 
 namespace api.Data;
 
@@ -17,7 +17,7 @@ public class AppDbContext : DbContext
     {
         base.OnModelCreating(modelBuilder);
 
-        var userRoleConverter = new ValueConverter<UserRole, string>(
+        var userRoleConverter = new ValueConverter<UserRoleEnums, string>(
             role => role.ToString(),
             value => ParseUserRole(value));
 
@@ -43,17 +43,17 @@ public class AppDbContext : DbContext
             .IsUnique();
     }
 
-    private static UserRole ParseUserRole(string? value)
+    private static UserRoleEnums ParseUserRole(string? value)
     {
         if (string.IsNullOrWhiteSpace(value))
-            return UserRole.Citizen;
+            return UserRoleEnums.Citizen;
 
         var normalized = value.Trim();
 
         if (normalized.Equals("User", StringComparison.OrdinalIgnoreCase))
-            return UserRole.Citizen;
+            return UserRoleEnums.Citizen;
 
-        if (Enum.TryParse<UserRole>(normalized, ignoreCase: true, out var role))
+        if (Enum.TryParse<UserRoleEnums>(normalized, ignoreCase: true, out var role))
             return role;
 
         throw new InvalidOperationException($"Rol inválido en base de datos: '{value}'");

@@ -1,4 +1,5 @@
 using shared;
+using shared.Enums;
 
 namespace admin;
 
@@ -99,7 +100,7 @@ public class DeliveriesForm : Form
 
         try
         {
-            var dto = new DeliveryCreateDto(userId, wasteTypeOption.Value.ToString(), _numKg.Value);
+            var dto = new DeliveryCreateDto(userId, wasteTypeOption.Value, _numKg.Value);
             await _apiClient.CreateDeliveryAsync(dto);
             _lblStatus.Text = "Delivery registrado";
             await LoadDataAsync();

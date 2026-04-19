@@ -1,4 +1,5 @@
 ﻿using shared;
+using shared.Enums;
 
 namespace app;
 
@@ -23,7 +24,7 @@ public partial class MainPage : ContentPage
         if (_currentUserState.Session is null || _currentUserState.User is null)
             return;
 
-        if (_currentUserState.Session.Role != UserRole.Citizen)
+        if (_currentUserState.Session.Role != UserRoleEnums.Citizen)
         {
             _currentUserState.Clear();
             return;
@@ -62,7 +63,7 @@ public partial class MainPage : ContentPage
                 return;
             }
 
-            if (session.Role != UserRole.Citizen)
+            if (session.Role != UserRoleEnums.Citizen)
             {
                 statusLabel.Text = "Acceso denegado: solo Citizens";
                 return;

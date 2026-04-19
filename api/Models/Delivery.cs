@@ -1,4 +1,4 @@
-﻿using shared;
+﻿using shared.Enums;
 
 namespace api.Models;
 

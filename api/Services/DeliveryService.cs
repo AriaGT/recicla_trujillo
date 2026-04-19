@@ -2,6 +2,7 @@
 using api.Models;
 using Microsoft.EntityFrameworkCore;
 using shared;
+using shared.Enums;
 
 namespace api.Services;
 
@@ -19,7 +20,7 @@ public class DeliveryService
     public async Task<List<DeliveryDto>> ListDeliveries()
     {
         return await _context.Deliveries
-            .Select(d => new DeliveryDto(d.Id, d.UserId, d.WasteType.ToString(), d.QuantityKg, d.PointsEarned, d.CreatedAt))
+            .Select(d => new DeliveryDto(d.Id, d.UserId, d.WasteType, d.QuantityKg, d.PointsEarned, d.CreatedAt))
             .ToListAsync();
     }
 
@@ -35,7 +36,7 @@ public class DeliveryService
         if (user == null)
             throw new InvalidOperationException("Usuario no encontrado");
 
-        var wasteType = ParseWasteType(dto.WasteType);
+        var wasteType = dto.WasteType;
         var points = _pointsService.CalculatePoints(wasteType.ToString(), dto.QuantityKg);
 
         var delivery = new Delivery
@@ -65,7 +66,7 @@ public class DeliveryService
             throw new InvalidOperationException("Usuario no encontrado");
 
         var previousPoints = delivery.PointsEarned;
-        var wasteType = ParseWasteType(dto.WasteType);
+        var wasteType = dto.WasteType;
         var newPoints = _pointsService.CalculatePoints(wasteType.ToString(), dto.QuantityKg);
 
         delivery.WasteType = wasteType;
@@ -99,31 +100,9 @@ public class DeliveryService
         new(
             d.Id,
             d.UserId,
-            d.WasteType.ToString(),
+            d.WasteType,
             d.QuantityKg,
             d.PointsEarned,
             d.CreatedAt
         );
-
-    private static WasteTypeEnums ParseWasteType(string value)
-    {
-        if (string.IsNullOrWhiteSpace(value))
-            throw new InvalidOperationException("Tipo de residuo inválido");
-
-        var normalized = value.Trim();
-
-        if (normalized.Equals("plastico", StringComparison.OrdinalIgnoreCase))
-            return WasteTypeEnums.Plastic;
-
-        if (normalized.Equals("carton", StringComparison.OrdinalIgnoreCase))
-            return WasteTypeEnums.Paper;
-
-        if (normalized.Equals("vidrio", StringComparison.OrdinalIgnoreCase))
-            return WasteTypeEnums.Glass;
-
-        if (Enum.TryParse<WasteTypeEnums>(normalized, ignoreCase: true, out var wasteType))
-            return wasteType;
-
-        throw new InvalidOperationException($"Tipo de residuo inválido: '{value}'");
-    }
 }

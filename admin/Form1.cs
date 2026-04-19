@@ -1,5 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 using shared;
+using shared.Enums;
 
 namespace admin;
 
@@ -37,7 +38,7 @@ public partial class Form1 : Form
                 return;
             }
 
-            if (session.Role != UserRole.Admin)
+            if (session.Role != UserRoleEnums.Admin)
             {
                 lblStatus.Text = "Acceso denegado: el usuario no es Admin";
                 return;

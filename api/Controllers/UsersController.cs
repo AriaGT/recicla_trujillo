@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using api.Services;
 using Microsoft.AspNetCore.Mvc;
 using shared;
+using shared.Enums;
 
 namespace api.Controllers
 {
@@ -43,7 +44,7 @@ namespace api.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutUser(int id, UserUpdateDto userDto)
         {
-            if (!Enum.IsDefined(typeof(UserRole), userDto.Role))
+            if (!Enum.IsDefined(typeof(UserRoleEnums), userDto.Role))
             {
                 return BadRequest(new { message = "El rol debe ser Citizen o Admin" });
             }
@@ -67,7 +68,7 @@ namespace api.Controllers
         [HttpPost]
         public async Task<ActionResult<UserDto>> PostUser(UserCreateDto userDto)
         {
-            if (!Enum.IsDefined(typeof(UserRole), userDto.Role))
+            if (!Enum.IsDefined(typeof(UserRoleEnums), userDto.Role))
             {
                 return BadRequest(new { message = "El rol debe ser Citizen o Admin" });
             }

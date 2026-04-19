@@ -1,4 +1,5 @@
 using shared;
+using shared.Enums;
 
 namespace admin;
 
@@ -27,7 +28,7 @@ public class UserCreateForm : Form
 
         var lblRole = new Label { Text = "Rol", AutoSize = true, Location = new Point(485, 18) };
         _cmbRole = new ComboBox { Location = new Point(485, 40), Width = 130, DropDownStyle = ComboBoxStyle.DropDownList };
-        _cmbRole.DataSource = Enum.GetValues<UserRole>();
+        _cmbRole.DataSource = Enum.GetValues<UserRoleEnums>();
 
         var btnCreate = new Button { Text = "Crear usuario", Location = new Point(630, 38), Size = new Size(120, 30) };
         btnCreate.Click += async (_, _) => await CreateUserAsync();
@@ -70,7 +71,7 @@ public class UserCreateForm : Form
     {
         var dni = _txtDni.Text.Trim();
         var fullName = _txtFullName.Text.Trim();
-        var role = _cmbRole.SelectedItem is UserRole selected ? selected : UserRole.Citizen;
+        var role = _cmbRole.SelectedItem is UserRoleEnums selected ? selected : UserRoleEnums.Citizen;
 
         if (string.IsNullOrWhiteSpace(dni))
         {

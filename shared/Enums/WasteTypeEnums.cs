@@ -1,4 +1,4 @@
-namespace shared;
+namespace shared.Enums;
 
 public enum WasteTypeEnums
 {
