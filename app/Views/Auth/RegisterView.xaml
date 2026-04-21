@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="app.Views.Auth.RegisterView"
+             Title="Registro">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="24" Spacing="14">
+            <Label Text="Registro de Citizen"
+                   FontSize="24"
+                   FontAttributes="Bold"
+                   TextColor="#2F4F4F" />
+
+            <Border Stroke="#2F4F4F" StrokeThickness="1" StrokeShape="RoundRectangle 8" Padding="10,6">
+                <Entry x:Name="DniEntry"
+                       Placeholder="DNI"
+                       Keyboard="Numeric"
+                       MaxLength="8" />
+            </Border>
+
+            <Border Stroke="#2F4F4F" StrokeThickness="1" StrokeShape="RoundRectangle 8" Padding="10,6">
+                <Entry x:Name="FullNameEntry"
+                       Placeholder="Nombre completo" />
+            </Border>
+
+            <Button x:Name="RegisterButton"
+                    Text="Registrarme"
+                    BackgroundColor="#2F4F4F"
+                    TextColor="White"
+                    Clicked="OnRegisterClicked" />
+
+            <Button Text="Volver al login"
+                    BackgroundColor="#6B8E8E"
+                    TextColor="White"
+                    Clicked="OnBackToLoginClicked" />
+
+            <Label x:Name="StatusLabel"
+                   TextColor="Red"
+                   LineBreakMode="WordWrap" />
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

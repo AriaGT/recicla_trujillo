@@ -1,8 +1,12 @@
+using admin.Views;
+using admin.Services;
+using admin.Components;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using shared;
+using shared.Services;
 
 namespace admin;
 
@@ -33,16 +37,28 @@ internal static class Program
             httpClient.BaseAddress = new Uri(settings.BaseUrl);
         });
 
-        builder.Services.AddTransient<Form1>();
-        builder.Services.AddTransient<HomeForm>();
-        builder.Services.AddTransient<DeliveriesForm>();
-        builder.Services.AddTransient<RewardsForm>();
-        builder.Services.AddTransient<RedemptionFlowForm>();
-        builder.Services.AddTransient<UserCreateForm>();
+        builder.Services.AddSingleton<ISessionService, SessionService>();
+        builder.Services.AddSingleton<INavigationService, NavigationService>();
+
+        builder.Services.AddSingleton<MainContainer>();
+
+        builder.Services.AddTransient<LoginView>();
+        builder.Services.AddTransient<HomeView>();
+        builder.Services.AddTransient<DeliveriesView>();
+        builder.Services.AddTransient<RegisterDeliveryView>();
+        builder.Services.AddTransient<RewardsView>();
+        builder.Services.AddTransient<RegisterRewardView>();
+        builder.Services.AddTransient<RedemptionsView>();
+        builder.Services.AddTransient<UsersView>();
+        builder.Services.AddTransient<RegisterUserView>();
 
         using var host = builder.Build();
-        var form = host.Services.GetRequiredService<Form1>();
 
-        Application.Run(form);
+        var navService = (NavigationService)host.Services.GetRequiredService<INavigationService>();
+        var mainForm = host.Services.GetRequiredService<MainContainer>();
+
+        navService.Initialize(mainForm);
+
+        Application.Run(mainForm);
     }
 }

@@ -1,3 +1,5 @@
+using shared.Structures.Simple;
+using System.Diagnostics;
 using System.Net;
 using System.Net.Http.Json;
 using System.Text.Json;
@@ -44,8 +46,8 @@ public sealed class ApiClient : IDisposable
     public async Task<UserDto> RegisterCitizenAsync(AuthRegisterDto dto, CancellationToken cancellationToken = default)
         => await PostAsync<AuthRegisterDto, UserDto>("api/auth/register", dto, cancellationToken);
 
-    public async Task<List<UserDto>> GetUsersAsync(CancellationToken cancellationToken = default)
-        => await GetListAsync<UserDto>("api/users", cancellationToken);
+    public async Task<NodeList<UserDto>> GetUsersAsync(CancellationToken cancellationToken = default)
+        => await GetNodeListAsync<UserDto>("api/users", cancellationToken);
 
     public async Task<UserDto?> GetUserByIdAsync(int id, CancellationToken cancellationToken = default)
         => await GetByIdAsync<UserDto>($"api/users/{id}", cancellationToken);
@@ -62,6 +64,9 @@ public sealed class ApiClient : IDisposable
     public async Task<List<RewardDto>> GetRewardsAsync(CancellationToken cancellationToken = default)
         => await GetListAsync<RewardDto>("api/rewards", cancellationToken);
 
+    public async Task<NodeList<RewardDto>> GetRewardsNodeListAsync(CancellationToken cancellationToken = default)
+        => await GetNodeListAsync<RewardDto>("api/rewards", cancellationToken);
+
     public async Task<RewardDto?> GetRewardByIdAsync(int id, CancellationToken cancellationToken = default)
         => await GetByIdAsync<RewardDto>($"api/rewards/{id}", cancellationToken);
 
@@ -74,8 +79,8 @@ public sealed class ApiClient : IDisposable
     public async Task<bool> DeleteRewardAsync(int id, CancellationToken cancellationToken = default)
         => await DeleteAsync($"api/rewards/{id}", cancellationToken);
 
-    public async Task<List<DeliveryDto>> GetDeliveriesAsync(CancellationToken cancellationToken = default)
-        => await GetListAsync<DeliveryDto>("api/deliveries", cancellationToken);
+    public async Task<NodeList<DeliveryDto>> GetDeliveriesAsync(CancellationToken cancellationToken = default)
+        => await GetNodeListAsync<DeliveryDto>("api/deliveries", cancellationToken);
 
     public async Task<DeliveryDto?> GetDeliveryByIdAsync(int id, CancellationToken cancellationToken = default)
         => await GetByIdAsync<DeliveryDto>($"api/deliveries/{id}", cancellationToken);
@@ -91,6 +96,9 @@ public sealed class ApiClient : IDisposable
 
     public async Task<List<RedemptionDto>> GetRedemptionsAsync(CancellationToken cancellationToken = default)
         => await GetListAsync<RedemptionDto>("api/redemptions", cancellationToken);
+
+    public async Task<NodeList<RedemptionDto>> GetRedemptionsNodeListAsync(CancellationToken cancellationToken = default)
+        => await GetNodeListAsync<RedemptionDto>("api/redemptions", cancellationToken);
 
     public async Task<RedemptionDto?> GetRedemptionByIdAsync(int id, CancellationToken cancellationToken = default)
         => await GetByIdAsync<RedemptionDto>($"api/redemptions/{id}", cancellationToken);
@@ -111,6 +119,13 @@ public sealed class ApiClient : IDisposable
 
         await EnsureBusinessSuccessAsync(response, cancellationToken);
         return await response.Content.ReadFromJsonAsync<RedemptionDto>(_jsonOptions, cancellationToken);
+    }
+    private async Task<NodeList<T>> GetNodeListAsync<T>(string endpoint, CancellationToken cancellationToken)
+    {
+        var response = await _httpClient.GetAsync(endpoint, cancellationToken);
+        await EnsureBusinessSuccessAsync(response, cancellationToken);
+        var jsonResponse = await response.Content.ReadAsStringAsync(cancellationToken);
+        return DataTransformer.ToSimpleList<T>(jsonResponse);
     }
 
     private async Task<List<T>> GetListAsync<T>(string endpoint, CancellationToken cancellationToken)

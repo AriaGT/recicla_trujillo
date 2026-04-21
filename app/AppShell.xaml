@@ -3,12 +3,12 @@
     x:Class="app.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:app"
-    Title="app">
+    xmlns:auth="clr-namespace:app.Views.Auth"
+    Title="Recicla Trujillo">
 
     <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+        Title="Inicio"
+        ContentTemplate="{DataTemplate auth:LoginView}"
+        Route="LoginView" />
 
 </Shell>

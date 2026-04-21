@@ -64,4 +64,16 @@
 		<ProjectReference Include="..\shared\shared.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <MauiXaml Update="Components\InfoRowView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Auth\LoginView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Home\HomeView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	</ItemGroup>
+
 </Project>

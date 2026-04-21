@@ -3,6 +3,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using shared;
+using app.Views.Auth;
+using app.Views.Home;
+using app.Views.Rewards;
 
 namespace app;
 
@@ -37,11 +40,10 @@ public static class MauiProgram
         });
 
         builder.Services.AddSingleton<CurrentUserState>();
-        builder.Services.AddTransient<MainPage>();
-        builder.Services.AddTransient<LoginPage>();
-        builder.Services.AddTransient<RegisterPage>();
-        builder.Services.AddTransient<HomePage>();
-        builder.Services.AddTransient<RewardsPage>();
+        builder.Services.AddTransient<LoginView>();
+        builder.Services.AddTransient<RegisterView>();
+        builder.Services.AddTransient<HomeView>();
+        builder.Services.AddTransient<RewardsView>();
 
 #if DEBUG
 		builder.Logging.AddDebug();

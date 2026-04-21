@@ -1,19 +1,20 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using app.Views.Auth;
 
 namespace app;
 
 public partial class App : Application
 {
-    private readonly LoginPage _loginPage;
+    private readonly LoginView _loginView;
 
-    public App(LoginPage loginPage)
+    public App(LoginView loginView)
     {
         InitializeComponent();
-        _loginPage = loginPage;
+        _loginView = loginView;
     }
 
     protected override Window CreateWindow(IActivationState? activationState)
     {
-        return new Window(new NavigationPage(_loginPage));
+        return new Window(new NavigationPage(_loginView));
     }
 }

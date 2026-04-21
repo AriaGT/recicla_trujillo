@@ -20,14 +20,36 @@ public class DeliveryService
     public async Task<List<DeliveryDto>> ListDeliveries()
     {
         return await _context.Deliveries
-            .Select(d => new DeliveryDto(d.Id, d.UserId, d.WasteType, d.QuantityKg, d.PointsEarned, d.CreatedAt))
+            .Include(d => d.User)
+            .AsNoTracking()
+            .Select(d => new DeliveryDto(
+                d.Id,
+                d.UserId,
+                new UserDto(d.User.Id, d.User.Dni, d.User.FullName, d.User.Points, d.User.Role),
+                d.WasteType,
+                d.QuantityKg,
+                d.PointsEarned,
+                d.CreatedAt))
             .ToListAsync();
     }
 
     public async Task<DeliveryDto?> GetDeliveryById(int id)
     {
-        var delivery = await _context.Deliveries.FindAsync(id);
-        return delivery == null ? null : ToDto(delivery);
+        var delivery = await _context.Deliveries
+            .Include(d => d.User)
+            .AsNoTracking()
+            .FirstOrDefaultAsync(d => d.Id == id);
+
+        return delivery == null
+            ? null
+            : new DeliveryDto(
+                delivery.Id,
+                delivery.UserId,
+                new UserDto(delivery.User.Id, delivery.User.Dni, delivery.User.FullName, delivery.User.Points, delivery.User.Role),
+                delivery.WasteType,
+                delivery.QuantityKg,
+                delivery.PointsEarned,
+                delivery.CreatedAt);
     }
 
     public async Task<DeliveryDto> RegisterDelivery(DeliveryCreateDto dto)
@@ -52,7 +74,14 @@ public class DeliveryService
         _context.Deliveries.Add(delivery);
         await _context.SaveChangesAsync();
 
-        return ToDto(delivery);
+        return new DeliveryDto(
+            delivery.Id,
+            delivery.UserId,
+            new UserDto(user.Id, user.Dni, user.FullName, user.Points, user.Role),
+            delivery.WasteType,
+            delivery.QuantityKg,
+            delivery.PointsEarned,
+            delivery.CreatedAt);
     }
 
     public async Task<DeliveryDto?> UpdateDelivery(int id, DeliveryUpdateDto dto)
@@ -77,7 +106,14 @@ public class DeliveryService
 
         await _context.SaveChangesAsync();
 
-        return ToDto(delivery);
+        return new DeliveryDto(
+            delivery.Id,
+            delivery.UserId,
+            new UserDto(user.Id, user.Dni, user.FullName, user.Points, user.Role),
+            delivery.WasteType,
+            delivery.QuantityKg,
+            delivery.PointsEarned,
+            delivery.CreatedAt);
     }
 
     public async Task<bool> DeleteDelivery(int id)
@@ -95,14 +131,4 @@ public class DeliveryService
 
         return true;
     }
-
-    private static DeliveryDto ToDto(Delivery d) =>
-        new(
-            d.Id,
-            d.UserId,
-            d.WasteType,
-            d.QuantityKg,
-            d.PointsEarned,
-            d.CreatedAt
-        );
 }
