@@ -16,9 +16,9 @@ namespace api.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<RedemptionDto>>> GetRedemptions()
+        public async Task<ActionResult<IEnumerable<RedemptionDto>>> GetRedemptions([FromQuery] int? userId)
         {
-            var result = await _redemptionService.ListRedemptions();
+            var result = await _redemptionService.ListRedemptions(userId);
             return Ok(result);
         }
 

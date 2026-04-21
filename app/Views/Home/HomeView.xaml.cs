@@ -31,7 +31,6 @@ public partial class HomeView : ContentPage
         if (session is null || user is null)
         {
             WelcomeLabel.Text = "Sesión no disponible";
-            UserIdRow.Value = string.Empty;
             DniRow.Value = string.Empty;
             FullNameRow.Value = string.Empty;
             PointsRow.Value = string.Empty;
@@ -40,7 +39,6 @@ public partial class HomeView : ContentPage
         }
 
         WelcomeLabel.Text = $"Bienvenido, {session.FullName}";
-        UserIdRow.Value = user.Id.ToString();
         DniRow.Value = user.Dni;
         FullNameRow.Value = user.FullName;
         PointsRow.Value = user.Points.ToString();

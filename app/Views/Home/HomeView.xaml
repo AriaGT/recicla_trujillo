@@ -1,23 +1,32 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:components="clr-namespace:app.Components"
-             x:Class="app.Views.Home.HomeView"
-             Title="Inicio">
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:components="clr-namespace:app.Components"
+    x:Class="app.Views.Home.HomeView"
+    NavigationPage.HasNavigationBar="False"
+    Title="Inicio"
+>
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="↻" Order="Secondary" Priority="0" Clicked="OnRefreshClicked" />
     </ContentPage.ToolbarItems>
 
     <ScrollView>
-        <VerticalStackLayout Padding="24" Spacing="14">
-            <Label x:Name="WelcomeLabel"
-                   FontSize="24"
-                   FontAttributes="Bold"
-                   TextColor="#2F4F4F" />
+        <VerticalStackLayout Padding="24" Spacing="14" BackgroundColor="{DynamicResource ViewBackground}">
+            <Label
+                x:Name="WelcomeLabel"
+                FontSize="24"
+                FontAttributes="Bold"
+                TextColor="{DynamicResource PrimaryDarkText}"
+            />
 
-            <Border Stroke="#DADADA" StrokeThickness="1" StrokeShape="RoundRectangle 10" Padding="14">
+            <Border
+                Stroke="{DynamicResource Gray200}"
+                StrokeThickness="0.5"
+                StrokeShape="RoundRectangle 10"
+                Padding="14"
+            >
                 <VerticalStackLayout Spacing="2">
-                    <components:InfoRowView x:Name="UserIdRow" Title="ID:" />
                     <components:InfoRowView x:Name="DniRow" Title="DNI:" />
                     <components:InfoRowView x:Name="FullNameRow" Title="Nombre:" />
                     <components:InfoRowView x:Name="PointsRow" Title="Puntos:" />
@@ -26,13 +35,13 @@
             </Border>
 
             <Button Text="Ver rewards"
-                    BackgroundColor="#2F4F4F"
-                    TextColor="White"
+                    BackgroundColor="{DynamicResource Primary}"
+                    TextColor="{DynamicResource White}"
                     Clicked="OnRewardsClicked" />
 
             <Button Text="Cerrar sesión"
-                    BackgroundColor="#B22222"
-                    TextColor="White"
+                    BackgroundColor="{DynamicResource Warning}"
+                    TextColor="{DynamicResource White}"
                     Clicked="OnLogoutClicked" />
         </VerticalStackLayout>
     </ScrollView>

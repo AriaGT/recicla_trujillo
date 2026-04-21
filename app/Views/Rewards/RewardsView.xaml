@@ -1,29 +1,41 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="app.Views.Rewards.RewardsView"
-             Title="Rewards">
-    <ContentPage.ToolbarItems>
-        <ToolbarItem Text="↻" Order="Secondary" Priority="0" Clicked="OnRefreshClicked" />
-    </ContentPage.ToolbarItems>
-
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    NavigationPage.HasNavigationBar="False"
+    x:Class="app.Views.Rewards.RewardsView"
+    Title="Rewards"
+>
     <ScrollView>
-        <VerticalStackLayout Padding="24" Spacing="14">
-            <Label Text="Tienda de Rewards"
-                   FontSize="24"
-                   FontAttributes="Bold"
-                   TextColor="#2F4F4F" />
+        <VerticalStackLayout
+            Padding="24"
+            Spacing="14"
+            BackgroundColor="{DynamicResource ViewBackground}"
+        >
+            <Label
+                Text="Tienda de Rewards"
+                FontSize="24"
+                FontAttributes="Bold"
+                TextColor="{DynamicResource Primary}"
+            />
 
-            <Label x:Name="UserPointsLabel"
-                   FontSize="16"
-                   FontAttributes="Bold"
-                   TextColor="#2F4F4F" />
+            <Label
+                x:Name="UserPointsLabel"
+                FontSize="16"
+                FontAttributes="Bold"
+                TextColor="{DynamicResource PrimaryDarkText}"
+            />
 
-            <Label x:Name="StatusLabel"
-                   TextColor="Gray"
-                   LineBreakMode="WordWrap" />
+            <Label
+                x:Name="StatusLabel"
+                TextColor="{DynamicResource Gray500}"
+                LineBreakMode="WordWrap"
+            />
 
-            <VerticalStackLayout x:Name="RewardsContainer" Spacing="8" />
+            <VerticalStackLayout
+                x:Name="RewardsContainer"
+                Spacing="8"
+            />
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

@@ -14,9 +14,16 @@ public class RedemptionService
         _context = context;
     }
 
-    public async Task<List<RedemptionDto>> ListRedemptions()
+    public async Task<List<RedemptionDto>> ListRedemptions(int? userId = null)
     {
-        return await _context.Redemptions
+        var query = _context.Redemptions.AsQueryable();
+
+        if (userId.HasValue)
+        {
+            query = query.Where(r => r.UserId == userId.Value);
+        }
+
+        return await query
             .Select(r => new RedemptionDto(r.Id, r.UserId, r.RewardId, r.PointsSpent, r.Code, r.CreatedAt))
             .ToListAsync();
     }

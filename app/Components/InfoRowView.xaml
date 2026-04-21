@@ -6,9 +6,9 @@
         <Label Grid.Column="0"
                Text="{Binding Title, Source={RelativeSource AncestorType={x:Type ContentView}}}"
                FontAttributes="Bold"
-               TextColor="#2F4F4F" />
+               TextColor="{DynamicResource PrimaryDarkText}" />
         <Label Grid.Column="1"
                Text="{Binding Value, Source={RelativeSource AncestorType={x:Type ContentView}}}"
-               TextColor="#2F4F4F" />
+               TextColor="{DynamicResource PrimaryDarkText}" />
     </Grid>
 </ContentView>

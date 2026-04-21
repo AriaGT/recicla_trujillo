@@ -31,15 +31,13 @@ public partial class RewardsView : ContentPage
     private async Task LoadRewardsAsync()
     {
         RefreshUserInfo();
-        StatusLabel.TextColor = Colors.Gray;
-        StatusLabel.Text = "Actualizando rewards...";
         RewardsContainer.Children.Clear();
 
         try
         {
-            _rewards = await _apiClient.GetRewardsNodeListAsync();
+            NodeList<RewardDto> rewards = await _apiClient.GetRewardsNodeListAsync();
 
-            Node<RewardDto>? current = _rewards.Head;
+            Node<RewardDto>? current = rewards.Head;
             while (current != null)
             {
                 var reward = current.Data;
@@ -57,7 +55,7 @@ public partial class RewardsView : ContentPage
             }
 
             StatusLabel.TextColor = Colors.Green;
-            StatusLabel.Text = "Rewards cargados";
+            StatusLabel.IsVisible = false;
         }
         catch (Exception ex)
         {
