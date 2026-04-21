@@ -14,7 +14,7 @@
             BackgroundColor="{DynamicResource ViewBackground}"
         >
             <Label
-                Text="Registro de Citizen"
+                Text="Registro Ciudadano"
                 FontSize="24"
                 FontAttributes="Bold"
                 TextColor="{DynamicResource Primary}"
@@ -55,7 +55,7 @@
             />
 
             <Button
-                Text="Volver al login"
+                Text="Regresar"
                 BackgroundColor="{DynamicResource Secondary}"
                 TextColor="{DynamicResource Primary}"
                 Clicked="OnBackToLoginClicked"

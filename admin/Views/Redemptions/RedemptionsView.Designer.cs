@@ -24,8 +24,7 @@ partial class RedemptionsView
         txtCode = new Input();
         btnValidate = new PrimaryButton();
         btnBack = new PrimaryButton();
-        btnRefresh = new PrimaryButton();
-        dgvRedemptions = new admin.Components.Table();
+        dgvRedemptions = new Table();
         Id = new DataGridViewTextBoxColumn();
         UserId = new DataGridViewTextBoxColumn();
         RewardId = new DataGridViewTextBoxColumn();
@@ -41,9 +40,9 @@ partial class RedemptionsView
         lblTitle.AutoSize = true;
         lblTitle.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
         lblTitle.ForeColor = Color.DarkSlateBlue;
-        lblTitle.Location = new Point(407, 25);
+        lblTitle.Location = new Point(407, 29);
         lblTitle.Name = "lblTitle";
-        lblTitle.Size = new Size(85, 25);
+        lblTitle.Size = new Size(81, 25);
         lblTitle.TabIndex = 0;
         lblTitle.Text = "Canjeos";
         // 
@@ -52,7 +51,7 @@ partial class RedemptionsView
         lblCode.AutoSize = true;
         lblCode.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
         lblCode.ForeColor = Color.DarkSlateBlue;
-        lblCode.Location = new Point(24, 74);
+        lblCode.Location = new Point(651, 12);
         lblCode.Name = "lblCode";
         lblCode.Size = new Size(58, 19);
         lblCode.TabIndex = 1;
@@ -61,12 +60,11 @@ partial class RedemptionsView
         // txtCode
         // 
         txtCode.BackColor = Color.White;
-        txtCode.Location = new Point(88, 67);
+        txtCode.Location = new Point(588, 33);
         txtCode.Margin = new Padding(4, 2, 4, 2);
         txtCode.Name = "txtCode";
-        txtCode.Size = new Size(240, 30);
+        txtCode.Size = new Size(182, 30);
         txtCode.TabIndex = 2;
-        txtCode.Text = "";
         // 
         // btnValidate
         // 
@@ -76,7 +74,7 @@ partial class RedemptionsView
         btnValidate.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
         btnValidate.ForeColor = Color.White;
         btnValidate.HoverColor = Color.SlateBlue;
-        btnValidate.Location = new Point(336, 62);
+        btnValidate.Location = new Point(777, 23);
         btnValidate.Name = "btnValidate";
         btnValidate.NormalColor = Color.DarkSlateBlue;
         btnValidate.Size = new Size(120, 40);
@@ -94,7 +92,7 @@ partial class RedemptionsView
         btnBack.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
         btnBack.ForeColor = Color.White;
         btnBack.HoverColor = Color.LightCoral;
-        btnBack.Location = new Point(24, 23);
+        btnBack.Location = new Point(23, 23);
         btnBack.Name = "btnBack";
         btnBack.NormalColor = Color.IndianRed;
         btnBack.Size = new Size(120, 40);
@@ -103,24 +101,6 @@ partial class RedemptionsView
         btnBack.Text = "Volver";
         btnBack.UseVisualStyleBackColor = false;
         btnBack.Click += btnBack_Click;
-        // 
-        // btnRefresh
-        // 
-        btnRefresh.BackColor = Color.DarkSlateBlue;
-        btnRefresh.FlatAppearance.BorderSize = 0;
-        btnRefresh.FlatStyle = FlatStyle.Flat;
-        btnRefresh.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-        btnRefresh.ForeColor = Color.White;
-        btnRefresh.HoverColor = Color.SlateBlue;
-        btnRefresh.Location = new Point(778, 62);
-        btnRefresh.Name = "btnRefresh";
-        btnRefresh.NormalColor = Color.DarkSlateBlue;
-        btnRefresh.Size = new Size(120, 40);
-        btnRefresh.TabIndex = 5;
-        btnRefresh.TabStop = false;
-        btnRefresh.Text = "Refrescar";
-        btnRefresh.UseVisualStyleBackColor = false;
-        btnRefresh.Click += btnRefresh_Click;
         // 
         // dgvRedemptions
         // 
@@ -151,7 +131,7 @@ partial class RedemptionsView
         dgvRedemptions.DefaultCellStyle = dataGridViewCellStyle2;
         dgvRedemptions.EnableHeadersVisualStyles = false;
         dgvRedemptions.GridColor = Color.FromArgb(235, 235, 235);
-        dgvRedemptions.Location = new Point(24, 114);
+        dgvRedemptions.Location = new Point(24, 86);
         dgvRedemptions.Margin = new Padding(4, 20, 4, 4);
         dgvRedemptions.MultiSelect = false;
         dgvRedemptions.Name = "dgvRedemptions";
@@ -159,7 +139,7 @@ partial class RedemptionsView
         dgvRedemptions.RowHeadersVisible = false;
         dgvRedemptions.RowTemplate.Height = 40;
         dgvRedemptions.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-        dgvRedemptions.Size = new Size(874, 362);
+        dgvRedemptions.Size = new Size(874, 390);
         dgvRedemptions.TabIndex = 6;
         // 
         // Id
@@ -199,7 +179,6 @@ partial class RedemptionsView
         // 
         // CreatedAt
         // 
-        CreatedAt.FillWeight = 100F;
         CreatedAt.HeaderText = "Fecha";
         CreatedAt.Name = "CreatedAt";
         CreatedAt.ReadOnly = true;
@@ -210,7 +189,6 @@ partial class RedemptionsView
         AutoScaleMode = AutoScaleMode.Font;
         BackColor = Color.White;
         Controls.Add(dgvRedemptions);
-        Controls.Add(btnRefresh);
         Controls.Add(btnBack);
         Controls.Add(btnValidate);
         Controls.Add(txtCode);
@@ -232,7 +210,6 @@ partial class RedemptionsView
     private Input txtCode;
     private PrimaryButton btnValidate;
     private PrimaryButton btnBack;
-    private PrimaryButton btnRefresh;
     private Components.Table dgvRedemptions;
     private DataGridViewTextBoxColumn Id;
     private DataGridViewTextBoxColumn UserId;
