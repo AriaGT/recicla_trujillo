@@ -20,7 +20,8 @@
                    TextColor="{DynamicResource PrimaryDarkText}" />
             <Label Text="{Binding StockText, Source={RelativeSource AncestorType={x:Type ContentView}}}"
                    TextColor="{DynamicResource PrimaryDarkText}" />
-            <Button Text="Canjear"
+            <Button x:Name="RedeemButton"
+                    Text="Canjear"
                     BackgroundColor="{DynamicResource Primary}"
                     TextColor="{DynamicResource White}"
                     Clicked="OnRedeemClicked" />

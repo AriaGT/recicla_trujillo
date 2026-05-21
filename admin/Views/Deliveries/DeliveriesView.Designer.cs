@@ -148,7 +148,7 @@ partial class DeliveriesView
         // CreatedAt
         // 
         CreatedAt.FillWeight = 119.923866F;
-        CreatedAt.HeaderText = "Fecha";
+        CreatedAt.HeaderText = "Puntos";
         CreatedAt.Name = "CreatedAt";
         CreatedAt.ReadOnly = true;
         // 

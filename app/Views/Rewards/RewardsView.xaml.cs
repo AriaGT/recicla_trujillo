@@ -36,6 +36,7 @@ public partial class RewardsView : ContentPage
         try
         {
             NodeList<RewardDto> rewards = await _apiClient.GetRewardsNodeListAsync();
+            _rewards = rewards;
 
             Node<RewardDto>? current = rewards.Head;
             while (current != null)
@@ -46,7 +47,8 @@ public partial class RewardsView : ContentPage
                     RewardId = reward.Id,
                     RewardName = reward.Name,
                     RequiredPointsText = $"Precio: {reward.RequiredPoints} pts",
-                    StockText = $"Stock: {reward.Stock}"
+                    StockText = $"Stock: {reward.Stock}",
+                    Stock = reward.Stock
                 };
 
                 card.RedeemClicked += OnRewardRedeemClicked;
