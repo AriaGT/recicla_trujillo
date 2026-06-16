@@ -38,6 +38,11 @@
                     TextColor="{DynamicResource White}"
                     Clicked="OnRewardsClicked" />
 
+            <Button Text="Puntos de Acopio"
+                    BackgroundColor="{DynamicResource Secondary}"
+                    TextColor="{DynamicResource SecondaryDarkText}"
+                    Clicked="OnNetworkClicked" />
+
             <Button Text="Cerrar sesión"
                     BackgroundColor="{DynamicResource Warning}"
                     TextColor="{DynamicResource White}"

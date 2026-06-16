@@ -1,5 +1,6 @@
 using shared;
 using app.Views.Rewards;
+using app.Views.Network;
 
 namespace app.Views.Home;
 
@@ -8,13 +9,15 @@ public partial class HomeView : ContentPage
     private readonly CurrentUserState _currentUserState;
     private readonly ApiClient _apiClient;
     private readonly RewardsView _rewardsView;
+    private readonly NetworkView _networkView;
 
-    public HomeView(CurrentUserState currentUserState, ApiClient apiClient, RewardsView rewardsView)
+    public HomeView(CurrentUserState currentUserState, ApiClient apiClient, RewardsView rewardsView, NetworkView networkView)
     {
         InitializeComponent();
         _currentUserState = currentUserState;
         _apiClient = apiClient;
         _rewardsView = rewardsView;
+        _networkView = networkView;
     }
 
     protected override void OnAppearing()
@@ -46,6 +49,11 @@ public partial class HomeView : ContentPage
     private async void OnRewardsClicked(object? sender, EventArgs e)
     {
         await Navigation.PushAsync(_rewardsView);
+    }
+
+    private async void OnNetworkClicked(object? sender, EventArgs e)
+    {
+        await Navigation.PushAsync(_networkView);
     }
 
     private async void OnRefreshClicked(object? sender, EventArgs e)

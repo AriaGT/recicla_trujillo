@@ -5,6 +5,7 @@ using Microsoft.Extensions.Options;
 using shared;
 using app.Views.Auth;
 using app.Views.Home;
+using app.Views.Network;
 using app.Views.Rewards;
 
 namespace app;
@@ -44,6 +45,7 @@ public static class MauiProgram
         builder.Services.AddTransient<RegisterView>();
         builder.Services.AddTransient<HomeView>();
         builder.Services.AddTransient<RewardsView>();
+        builder.Services.AddTransient<NetworkView>();
 
 #if DEBUG
 		builder.Logging.AddDebug();

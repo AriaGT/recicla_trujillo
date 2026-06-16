@@ -1,7 +1,7 @@
+using shared.Structures.Simple;
+
 namespace shared.Structures.Tree;
 
-// Generic Binary Search Tree. Ordering is provided by an external Comparison<T>,
-// so it works with any type (e.g. users ordered by DNI).
 public class BinarySearchTree<T>
 {
     private TreeNode<T>? _root;
@@ -25,12 +25,10 @@ public class BinarySearchTree<T>
             node.Left = Insert(node.Left, value, comparer);
         else if (result > 0)
             node.Right = Insert(node.Right, value, comparer);
-        // If equal, ignore to keep keys unique.
 
         return node;
     }
 
-    // Searches for a value and reports how many comparisons were made (a BST metric).
     public T? Search(T value, Comparison<T> comparer, ref int comparisons, ref bool found)
     {
         comparisons = 0;
@@ -52,20 +50,19 @@ public class BinarySearchTree<T>
         return default;
     }
 
-    // In-order traversal: returns the values sorted from smallest to largest.
-    public List<T> InOrderTraversal()
+    public NodeList<T> InOrderTraversal()
     {
-        var list = new List<T>();
+        var list = new NodeList<T>();
         InOrderTraversal(_root, list);
         return list;
     }
 
-    private static void InOrderTraversal(TreeNode<T>? node, List<T> list)
+    private static void InOrderTraversal(TreeNode<T>? node, NodeList<T> list)
     {
         if (node == null)
             return;
         InOrderTraversal(node.Left, list);
-        list.Add(node.Value);
+        list.AddLast(node.Value);
         InOrderTraversal(node.Right, list);
     }
 }

@@ -1,19 +1,20 @@
 using shared.Structures.Queue;
+using shared.Structures.Simple;
 
 namespace shared.Structures.Graph;
 
-// Undirected graph represented with an adjacency list.
-// Each edge connects two vertices in both directions.
 public class UndirectedGraph<T> where T : notnull
 {
-    private readonly Dictionary<T, List<T>> _adjacency = new();
+    private AdjacencyNode? _head;
+    private int _vertexCount;
 
-    public int VertexCount => _adjacency.Count;
+    public int VertexCount => _vertexCount;
 
     public void AddVertex(T vertex)
     {
-        if (!_adjacency.ContainsKey(vertex))
-            _adjacency[vertex] = new List<T>();
+        if (Find(vertex) != null) return;
+        _head = new AdjacencyNode(vertex) { Next = _head };
+        _vertexCount++;
     }
 
     public void AddEdge(T origin, T destination)
@@ -21,45 +22,95 @@ public class UndirectedGraph<T> where T : notnull
         AddVertex(origin);
         AddVertex(destination);
 
-        if (!_adjacency[origin].Contains(destination))
-            _adjacency[origin].Add(destination);
-        if (!_adjacency[destination].Contains(origin))
-            _adjacency[destination].Add(origin);
+        var o = Find(origin)!;
+        var d = Find(destination)!;
+
+        if (!Contains(o.Neighbors, destination))
+            o.Neighbors.AddLast(destination);
+        if (!Contains(d.Neighbors, origin))
+            d.Neighbors.AddLast(origin);
     }
 
-    public List<T> Neighbors(T vertex)
+    public T[] Neighbors(T vertex)
     {
-        return _adjacency.TryGetValue(vertex, out var list)
-            ? new List<T>(list)
-            : new List<T>();
+        var entry = Find(vertex);
+        return entry == null ? new T[0] : ToArray(entry.Neighbors);
     }
 
-    // Breadth-first search using the generic LinkedQueue: returns the vertices
-    // reachable from the origin in the order they are visited.
-    public List<T> BreadthFirstSearch(T origin)
+    public T[] BreadthFirstSearch(T origin)
     {
-        var visited = new List<T>();
-        if (!_adjacency.ContainsKey(origin))
-            return visited;
+        if (Find(origin) == null) return new T[0];
 
-        var marked = new HashSet<T>();
         var queue = new LinkedQueue<T>();
+        var marked = new NodeList<T>();
+        var resultQueue = new LinkedQueue<T>();
 
         queue.Enqueue(origin);
-        marked.Add(origin);
+        marked.AddLast(origin);
 
         while (!queue.IsEmpty())
         {
             var current = queue.Dequeue();
-            visited.Add(current);
+            resultQueue.Enqueue(current);
 
-            foreach (var neighbor in _adjacency[current])
+            var entry = Find(current);
+            if (entry == null) continue;
+
+            var neighbor = entry.Neighbors.Head;
+            while (neighbor != null)
             {
-                if (marked.Add(neighbor))
-                    queue.Enqueue(neighbor);
+                if (!Contains(marked, neighbor.Data))
+                {
+                    marked.AddLast(neighbor.Data);
+                    queue.Enqueue(neighbor.Data);
+                }
+                neighbor = neighbor.Next;
             }
         }
 
-        return visited;
+        return resultQueue.ToArray();
+    }
+
+    private AdjacencyNode? Find(T vertex)
+    {
+        var current = _head;
+        while (current != null)
+        {
+            if (current.Vertex.Equals(vertex)) return current;
+            current = current.Next;
+        }
+        return null;
+    }
+
+    private static bool Contains(NodeList<T> list, T value)
+    {
+        var current = list.Head;
+        while (current != null)
+        {
+            if (current.Data.Equals(value)) return true;
+            current = current.Next;
+        }
+        return false;
+    }
+
+    private static T[] ToArray(NodeList<T> list)
+    {
+        int count = 0;
+        var current = list.Head;
+        while (current != null) { count++; current = current.Next; }
+
+        var array = new T[count];
+        current = list.Head;
+        int i = 0;
+        while (current != null) { array[i++] = current.Data; current = current.Next; }
+        return array;
+    }
+
+    private sealed class AdjacencyNode
+    {
+        public T Vertex { get; }
+        public NodeList<T> Neighbors { get; } = new();
+        public AdjacencyNode? Next { get; set; }
+        public AdjacencyNode(T vertex) => Vertex = vertex;
     }
 }

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    NavigationPage.HasNavigationBar="False"
+    x:Class="app.Views.Network.NetworkView"
+    Title="Red de Acopio"
+>
+    <ScrollView>
+        <VerticalStackLayout
+            Padding="24"
+            Spacing="14"
+            BackgroundColor="{DynamicResource ViewBackground}"
+        >
+            <Label
+                Text="Red de Puntos de Acopio"
+                FontSize="24"
+                FontAttributes="Bold"
+                TextColor="{DynamicResource Primary}"
+            />
+
+            <Label
+                Text="Selecciona tu distrito para ver los puntos de entrega cercanos y la ruta completa de recolección."
+                TextColor="{DynamicResource Gray500}"
+                LineBreakMode="WordWrap"
+            />
+
+            <Border
+                Stroke="{DynamicResource Gray200}"
+                StrokeThickness="0.5"
+                StrokeShape="RoundRectangle 10"
+                BackgroundColor="{DynamicResource White}"
+                Padding="4,0"
+            >
+                <Picker
+                    x:Name="DistrictPicker"
+                    Title="Selecciona tu distrito"
+                    TitleColor="{DynamicResource Gray400}"
+                    TextColor="{DynamicResource PrimaryDarkText}"
+                />
+            </Border>
+
+            <Button
+                Text="Ver conexiones"
+                BackgroundColor="{DynamicResource Primary}"
+                TextColor="{DynamicResource White}"
+                Clicked="OnAnalyzeClicked"
+            />
+
+            <Border
+                x:Name="NeighborsCard"
+                IsVisible="False"
+                Stroke="{DynamicResource Gray200}"
+                StrokeThickness="0.5"
+                StrokeShape="RoundRectangle 10"
+                Padding="16"
+            >
+                <VerticalStackLayout Spacing="10">
+                    <Label
+                        Text="Puntos conectados directamente"
+                        FontAttributes="Bold"
+                        FontSize="16"
+                        TextColor="{DynamicResource Primary}"
+                    />
+                    <Label
+                        Text="Puedes entregar residuos en estos puntos sin pasar por otro distrito:"
+                        FontSize="12"
+                        TextColor="{DynamicResource Gray500}"
+                        LineBreakMode="WordWrap"
+                    />
+                    <VerticalStackLayout x:Name="NeighborsContainer" Spacing="6" />
+                </VerticalStackLayout>
+            </Border>
+
+            <Button
+                Text="Volver"
+                BackgroundColor="{DynamicResource Gray300}"
+                TextColor="{DynamicResource PrimaryDarkText}"
+                Clicked="OnBackClicked"
+            />
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

@@ -30,7 +30,7 @@ internal partial class AcopioView : BaseView
             return;
         }
 
-        foreach (var punto in new[] { "Centro", "La Esperanza", "El Porvenir", "Trujillo Norte", "Víctor Larco", "Moche" })
+        foreach (var punto in new[] { "Centro", "La Esperanza", "El Porvenir", "Florencia de Mora", "Víctor Larco", "Moche" })
             cboOrigin.Items.Add(punto);
 
         if (cboOrigin.Items.Count > 0)
@@ -43,8 +43,8 @@ internal partial class AcopioView : BaseView
         _network.AddEdge("Centro", "La Esperanza");
         _network.AddEdge("Centro", "El Porvenir");
         _network.AddEdge("Centro", "Víctor Larco");
-        _network.AddEdge("La Esperanza", "Trujillo Norte");
-        _network.AddEdge("El Porvenir", "Trujillo Norte");
+        _network.AddEdge("La Esperanza", "Florencia de Mora");
+        _network.AddEdge("El Porvenir", "Florencia de Mora");
         _network.AddEdge("Víctor Larco", "Moche");
     }
 
@@ -66,7 +66,7 @@ internal partial class AcopioView : BaseView
 
         lblOutput.Text =
             $"Punto: {origin}\r\n\r\n" +
-            $"Vecinos directos: {(neighbors.Count > 0 ? string.Join(", ", neighbors) : "ninguno")}\r\n\r\n" +
+            $"Vecinos directos: {(neighbors.Length > 0 ? string.Join(", ", neighbors) : "ninguno")}\r\n\r\n" +
             $"Alcanzables (BFS): {string.Join(" → ", reachable)}";
     }
 }
