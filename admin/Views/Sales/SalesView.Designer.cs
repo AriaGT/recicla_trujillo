@@ -2,7 +2,7 @@ using admin.Components;
 
 namespace admin.Views;
 
-partial class RedemptionsView
+partial class SalesView
 {
     private System.ComponentModel.IContainer components = null;
 
@@ -24,18 +24,21 @@ partial class RedemptionsView
         txtCode = new Input();
         btnValidate = new PrimaryButton();
         btnBack = new PrimaryButton();
-        dgvRedemptions = new Table();
+        btnRefresh = new PrimaryButton();
+        btnAttend = new PrimaryButton();
+        lblQueue = new Label();
+        dgvSales = new Table();
         Id = new DataGridViewTextBoxColumn();
         UserId = new DataGridViewTextBoxColumn();
         RewardId = new DataGridViewTextBoxColumn();
-        PointsSpent = new DataGridViewTextBoxColumn();
+        Amount = new DataGridViewTextBoxColumn();
         Code = new DataGridViewTextBoxColumn();
         CreatedAt = new DataGridViewTextBoxColumn();
-        ((System.ComponentModel.ISupportInitialize)dgvRedemptions).BeginInit();
+        ((System.ComponentModel.ISupportInitialize)dgvSales).BeginInit();
         SuspendLayout();
-        // 
+        //
         // lblTitle
-        // 
+        //
         lblTitle.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
         lblTitle.AutoSize = true;
         lblTitle.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
@@ -44,10 +47,10 @@ partial class RedemptionsView
         lblTitle.Name = "lblTitle";
         lblTitle.Size = new Size(81, 25);
         lblTitle.TabIndex = 0;
-        lblTitle.Text = "Canjeos";
-        // 
+        lblTitle.Text = "Ventas";
+        //
         // lblCode
-        // 
+        //
         lblCode.AutoSize = true;
         lblCode.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
         lblCode.ForeColor = Color.DarkSlateBlue;
@@ -56,18 +59,18 @@ partial class RedemptionsView
         lblCode.Size = new Size(58, 19);
         lblCode.TabIndex = 1;
         lblCode.Text = "Código";
-        // 
+        //
         // txtCode
-        // 
+        //
         txtCode.BackColor = Color.White;
         txtCode.Location = new Point(588, 33);
         txtCode.Margin = new Padding(4, 2, 4, 2);
         txtCode.Name = "txtCode";
         txtCode.Size = new Size(182, 30);
         txtCode.TabIndex = 2;
-        // 
+        //
         // btnValidate
-        // 
+        //
         btnValidate.BackColor = Color.DarkSlateBlue;
         btnValidate.FlatAppearance.BorderSize = 0;
         btnValidate.FlatStyle = FlatStyle.Flat;
@@ -83,9 +86,9 @@ partial class RedemptionsView
         btnValidate.Text = "Validar";
         btnValidate.UseVisualStyleBackColor = false;
         btnValidate.Click += btnValidate_Click;
-        // 
+        //
         // btnBack
-        // 
+        //
         btnBack.BackColor = Color.IndianRed;
         btnBack.FlatAppearance.BorderSize = 0;
         btnBack.FlatStyle = FlatStyle.Flat;
@@ -101,16 +104,62 @@ partial class RedemptionsView
         btnBack.Text = "Volver";
         btnBack.UseVisualStyleBackColor = false;
         btnBack.Click += btnBack_Click;
-        // 
-        // dgvRedemptions
-        // 
-        dgvRedemptions.AllowUserToAddRows = false;
-        dgvRedemptions.AllowUserToResizeRows = false;
-        dgvRedemptions.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-        dgvRedemptions.BackgroundColor = Color.White;
-        dgvRedemptions.BorderStyle = BorderStyle.None;
-        dgvRedemptions.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
-        dgvRedemptions.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+        //
+        // btnRefresh
+        //
+        btnRefresh.BackColor = Color.DarkSlateBlue;
+        btnRefresh.FlatAppearance.BorderSize = 0;
+        btnRefresh.FlatStyle = FlatStyle.Flat;
+        btnRefresh.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+        btnRefresh.ForeColor = Color.White;
+        btnRefresh.HoverColor = Color.SlateBlue;
+        btnRefresh.Location = new Point(157, 23);
+        btnRefresh.Name = "btnRefresh";
+        btnRefresh.NormalColor = Color.DarkSlateBlue;
+        btnRefresh.Size = new Size(120, 40);
+        btnRefresh.TabIndex = 5;
+        btnRefresh.TabStop = false;
+        btnRefresh.Text = "Refrescar";
+        btnRefresh.UseVisualStyleBackColor = false;
+        btnRefresh.Click += btnRefresh_Click;
+        //
+        // btnAttend
+        //
+        btnAttend.BackColor = Color.SeaGreen;
+        btnAttend.FlatAppearance.BorderSize = 0;
+        btnAttend.FlatStyle = FlatStyle.Flat;
+        btnAttend.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+        btnAttend.ForeColor = Color.White;
+        btnAttend.HoverColor = Color.MediumSeaGreen;
+        btnAttend.Location = new Point(291, 23);
+        btnAttend.Name = "btnAttend";
+        btnAttend.NormalColor = Color.SeaGreen;
+        btnAttend.Size = new Size(160, 40);
+        btnAttend.TabIndex = 6;
+        btnAttend.TabStop = false;
+        btnAttend.Text = "Atender siguiente";
+        btnAttend.UseVisualStyleBackColor = false;
+        btnAttend.Click += btnAttend_Click;
+        //
+        // lblQueue
+        //
+        lblQueue.AutoSize = true;
+        lblQueue.Font = new Font("Segoe UI", 10F);
+        lblQueue.ForeColor = Color.Gray;
+        lblQueue.Location = new Point(465, 33);
+        lblQueue.Name = "lblQueue";
+        lblQueue.Size = new Size(0, 19);
+        lblQueue.TabIndex = 7;
+        //
+        // dgvSales
+        //
+        dgvSales.AllowUserToAddRows = false;
+        dgvSales.AllowUserToResizeRows = false;
+        dgvSales.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+        dgvSales.BackgroundColor = Color.White;
+        dgvSales.BorderStyle = BorderStyle.None;
+        dgvSales.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
+        dgvSales.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
         dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
         dataGridViewCellStyle1.BackColor = Color.DarkSlateBlue;
         dataGridViewCellStyle1.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
@@ -118,9 +167,9 @@ partial class RedemptionsView
         dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
         dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
         dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-        dgvRedemptions.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-        dgvRedemptions.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-        dgvRedemptions.Columns.AddRange(new DataGridViewColumn[] { Id, UserId, RewardId, PointsSpent, Code, CreatedAt });
+        dgvSales.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+        dgvSales.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+        dgvSales.Columns.AddRange(new DataGridViewColumn[] { Id, UserId, RewardId, Amount, Code, CreatedAt });
         dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
         dataGridViewCellStyle2.BackColor = Color.White;
         dataGridViewCellStyle2.Font = new Font("Segoe UI", 10F);
@@ -128,79 +177,82 @@ partial class RedemptionsView
         dataGridViewCellStyle2.SelectionBackColor = Color.FromArgb(232, 240, 254);
         dataGridViewCellStyle2.SelectionForeColor = Color.Black;
         dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
-        dgvRedemptions.DefaultCellStyle = dataGridViewCellStyle2;
-        dgvRedemptions.EnableHeadersVisualStyles = false;
-        dgvRedemptions.GridColor = Color.FromArgb(235, 235, 235);
-        dgvRedemptions.Location = new Point(24, 86);
-        dgvRedemptions.Margin = new Padding(4, 20, 4, 4);
-        dgvRedemptions.MultiSelect = false;
-        dgvRedemptions.Name = "dgvRedemptions";
-        dgvRedemptions.ReadOnly = true;
-        dgvRedemptions.RowHeadersVisible = false;
-        dgvRedemptions.RowTemplate.Height = 40;
-        dgvRedemptions.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-        dgvRedemptions.Size = new Size(874, 390);
-        dgvRedemptions.TabIndex = 6;
-        // 
+        dgvSales.DefaultCellStyle = dataGridViewCellStyle2;
+        dgvSales.EnableHeadersVisualStyles = false;
+        dgvSales.GridColor = Color.FromArgb(235, 235, 235);
+        dgvSales.Location = new Point(24, 86);
+        dgvSales.Margin = new Padding(4, 20, 4, 4);
+        dgvSales.MultiSelect = false;
+        dgvSales.Name = "dgvSales";
+        dgvSales.ReadOnly = true;
+        dgvSales.RowHeadersVisible = false;
+        dgvSales.RowTemplate.Height = 40;
+        dgvSales.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+        dgvSales.Size = new Size(874, 390);
+        dgvSales.TabIndex = 8;
+        //
         // Id
-        // 
+        //
         Id.FillWeight = 25F;
         Id.HeaderText = "ID";
         Id.Name = "Id";
         Id.ReadOnly = true;
-        // 
+        //
         // UserId
-        // 
+        //
         UserId.FillWeight = 50F;
         UserId.HeaderText = "Usuario";
         UserId.Name = "UserId";
         UserId.ReadOnly = true;
-        // 
+        //
         // RewardId
-        // 
+        //
         RewardId.FillWeight = 50F;
         RewardId.HeaderText = "Reward";
         RewardId.Name = "RewardId";
         RewardId.ReadOnly = true;
-        // 
-        // PointsSpent
-        // 
-        PointsSpent.FillWeight = 60F;
-        PointsSpent.HeaderText = "Puntos";
-        PointsSpent.Name = "PointsSpent";
-        PointsSpent.ReadOnly = true;
-        // 
+        //
+        // Amount
+        //
+        Amount.FillWeight = 60F;
+        Amount.HeaderText = "Monto (S/)";
+        Amount.Name = "Amount";
+        Amount.ReadOnly = true;
+        //
         // Code
-        // 
+        //
         Code.FillWeight = 70F;
         Code.HeaderText = "Código";
         Code.Name = "Code";
         Code.ReadOnly = true;
-        // 
+        //
         // CreatedAt
-        // 
+        //
         CreatedAt.HeaderText = "Fecha";
         CreatedAt.Name = "CreatedAt";
         CreatedAt.ReadOnly = true;
-        // 
-        // RedemptionsView
-        // 
+        //
+        // SalesView
+        //
         AutoScaleDimensions = new SizeF(7F, 15F);
         AutoScaleMode = AutoScaleMode.Font;
         BackColor = Color.White;
-        Controls.Add(dgvRedemptions);
+        Controls.Add(dgvSales);
+        Controls.Add(lblQueue);
+        Controls.Add(btnAttend);
+        Controls.Add(btnRefresh);
         Controls.Add(btnBack);
         Controls.Add(btnValidate);
         Controls.Add(txtCode);
         Controls.Add(lblCode);
         Controls.Add(lblTitle);
-        Name = "RedemptionsView";
+        Name = "SalesView";
         Padding = new Padding(20);
         Size = new Size(920, 500);
         ViewSize = new Size(920, 500);
-        ViewTitle = "Validación de canjeos";
-        Load += RedemptionsView_Load;
-        ((System.ComponentModel.ISupportInitialize)dgvRedemptions).EndInit();
+        ViewTitle = "Gestión de ventas";
+        Load += SalesView_Load;
+        ((System.ComponentModel.ISupportInitialize)dgvSales).EndInit();
         ResumeLayout(false);
         PerformLayout();
     }
@@ -210,11 +262,14 @@ partial class RedemptionsView
     private Input txtCode;
     private PrimaryButton btnValidate;
     private PrimaryButton btnBack;
-    private Components.Table dgvRedemptions;
+    private PrimaryButton btnRefresh;
+    private PrimaryButton btnAttend;
+    private Label lblQueue;
+    private Components.Table dgvSales;
     private DataGridViewTextBoxColumn Id;
     private DataGridViewTextBoxColumn UserId;
     private DataGridViewTextBoxColumn RewardId;
-    private DataGridViewTextBoxColumn PointsSpent;
+    private DataGridViewTextBoxColumn Amount;
     private DataGridViewTextBoxColumn Code;
     private DataGridViewTextBoxColumn CreatedAt;
 }

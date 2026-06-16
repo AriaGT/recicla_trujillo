@@ -33,7 +33,6 @@ public partial class HomeView : ContentPage
             WelcomeLabel.Text = "Sesión no disponible";
             DniRow.Value = string.Empty;
             FullNameRow.Value = string.Empty;
-            PointsRow.Value = string.Empty;
             RoleRow.Value = string.Empty;
             return;
         }
@@ -41,7 +40,6 @@ public partial class HomeView : ContentPage
         WelcomeLabel.Text = $"Bienvenido, {session.FullName}";
         DniRow.Value = user.Dni;
         FullNameRow.Value = user.FullName;
-        PointsRow.Value = user.Points.ToString();
         RoleRow.Value = user.Role.ToString();
     }
 

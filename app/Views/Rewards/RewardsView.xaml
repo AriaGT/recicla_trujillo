@@ -20,13 +20,6 @@
             />
 
             <Label
-                x:Name="UserPointsLabel"
-                FontSize="16"
-                FontAttributes="Bold"
-                TextColor="{DynamicResource PrimaryDarkText}"
-            />
-
-            <Label
                 x:Name="StatusLabel"
                 TextColor="{DynamicResource Gray500}"
                 LineBreakMode="WordWrap"

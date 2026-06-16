@@ -57,7 +57,7 @@ internal partial class RewardsView : BaseView
             while (current != null)
             {
                 RewardDto reward = current.Data;
-                dgvRewards.Rows.Add(reward.Id, reward.Name, reward.RequiredPoints, reward.Stock);
+                dgvRewards.Rows.Add(reward.Id, reward.Name, reward.Price.ToString("0.00"), reward.Stock);
                 current = current.Next;
             }
         }

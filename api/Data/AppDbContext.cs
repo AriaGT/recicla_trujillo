@@ -11,7 +11,7 @@ public class AppDbContext : DbContext
     public DbSet<User> Users => Set<User>();
     public DbSet<Delivery> Deliveries => Set<Delivery>();
     public DbSet<Reward> Rewards => Set<Reward>();
-    public DbSet<Redemption> Redemptions => Set<Redemption>();
+    public DbSet<Sale> Sales => Set<Sale>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -33,12 +33,12 @@ public class AppDbContext : DbContext
             .Property(x => x.WasteType)
             .HasConversion(wasteTypeConverter);
 
-        modelBuilder.Entity<Redemption>()
+        modelBuilder.Entity<Sale>()
             .Property(x => x.Code)
             .HasMaxLength(7)
             .IsRequired();
 
-        modelBuilder.Entity<Redemption>()
+        modelBuilder.Entity<Sale>()
             .HasIndex(x => x.Code)
             .IsUnique();
     }

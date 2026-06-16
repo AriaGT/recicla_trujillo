@@ -1,20 +1,19 @@
-﻿using api.Data;
+using api.Data;
 using api.Models;
 using Microsoft.EntityFrameworkCore;
 using shared;
-using shared.Enums;
 
 namespace api.Services;
 
 public class DeliveryService
 {
     private readonly AppDbContext _context;
-    private readonly PointsService _pointsService;
+    private readonly PricingService _pricingService;
 
-    public DeliveryService(AppDbContext context, PointsService pointsService)
+    public DeliveryService(AppDbContext context, PricingService pricingService)
     {
         _context = context;
-        _pointsService = pointsService;
+        _pricingService = pricingService;
     }
 
     public async Task<List<DeliveryDto>> ListDeliveries()
@@ -25,10 +24,10 @@ public class DeliveryService
             .Select(d => new DeliveryDto(
                 d.Id,
                 d.UserId,
-                new UserDto(d.User.Id, d.User.Dni, d.User.FullName, d.User.Points, d.User.Role),
+                new UserDto(d.User.Id, d.User.Dni, d.User.FullName, d.User.Role),
                 d.WasteType,
                 d.QuantityKg,
-                d.PointsEarned,
+                d.AmountPaid,
                 d.CreatedAt))
             .ToListAsync();
     }
@@ -40,16 +39,7 @@ public class DeliveryService
             .AsNoTracking()
             .FirstOrDefaultAsync(d => d.Id == id);
 
-        return delivery == null
-            ? null
-            : new DeliveryDto(
-                delivery.Id,
-                delivery.UserId,
-                new UserDto(delivery.User.Id, delivery.User.Dni, delivery.User.FullName, delivery.User.Points, delivery.User.Role),
-                delivery.WasteType,
-                delivery.QuantityKg,
-                delivery.PointsEarned,
-                delivery.CreatedAt);
+        return delivery == null ? null : ToDto(delivery, delivery.User);
     }
 
     public async Task<DeliveryDto> RegisterDelivery(DeliveryCreateDto dto)
@@ -59,29 +49,20 @@ public class DeliveryService
             throw new InvalidOperationException("Usuario no encontrado");
 
         var wasteType = dto.WasteType;
-        var points = _pointsService.CalculatePoints(wasteType.ToString(), dto.QuantityKg);
+        var amountPaid = _pricingService.CalculateAmount(wasteType.ToString(), dto.QuantityKg);
 
         var delivery = new Delivery
         {
             UserId = dto.UserId,
             WasteType = wasteType,
             QuantityKg = dto.QuantityKg,
-            PointsEarned = points
+            AmountPaid = amountPaid
         };
-
-        user.Points += points;
 
         _context.Deliveries.Add(delivery);
         await _context.SaveChangesAsync();
 
-        return new DeliveryDto(
-            delivery.Id,
-            delivery.UserId,
-            new UserDto(user.Id, user.Dni, user.FullName, user.Points, user.Role),
-            delivery.WasteType,
-            delivery.QuantityKg,
-            delivery.PointsEarned,
-            delivery.CreatedAt);
+        return ToDto(delivery, user);
     }
 
     public async Task<DeliveryDto?> UpdateDelivery(int id, DeliveryUpdateDto dto)
@@ -94,26 +75,13 @@ public class DeliveryService
         if (user == null)
             throw new InvalidOperationException("Usuario no encontrado");
 
-        var previousPoints = delivery.PointsEarned;
-        var wasteType = dto.WasteType;
-        var newPoints = _pointsService.CalculatePoints(wasteType.ToString(), dto.QuantityKg);
-
-        delivery.WasteType = wasteType;
+        delivery.WasteType = dto.WasteType;
         delivery.QuantityKg = dto.QuantityKg;
-        delivery.PointsEarned = newPoints;
-
-        user.Points += (newPoints - previousPoints);
+        delivery.AmountPaid = _pricingService.CalculateAmount(dto.WasteType.ToString(), dto.QuantityKg);
 
         await _context.SaveChangesAsync();
 
-        return new DeliveryDto(
-            delivery.Id,
-            delivery.UserId,
-            new UserDto(user.Id, user.Dni, user.FullName, user.Points, user.Role),
-            delivery.WasteType,
-            delivery.QuantityKg,
-            delivery.PointsEarned,
-            delivery.CreatedAt);
+        return ToDto(delivery, user);
     }
 
     public async Task<bool> DeleteDelivery(int id)
@@ -122,13 +90,18 @@ public class DeliveryService
         if (delivery == null)
             return false;
 
-        var user = await _context.Users.FindAsync(delivery.UserId);
-        if (user != null)
-            user.Points -= delivery.PointsEarned;
-
         _context.Deliveries.Remove(delivery);
         await _context.SaveChangesAsync();
 
         return true;
     }
+
+    private static DeliveryDto ToDto(Delivery delivery, User user) =>
+        new(delivery.Id,
+            delivery.UserId,
+            new UserDto(user.Id, user.Dni, user.FullName, user.Role),
+            delivery.WasteType,
+            delivery.QuantityKg,
+            delivery.AmountPaid,
+            delivery.CreatedAt);
 }

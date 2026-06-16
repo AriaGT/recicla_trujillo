@@ -41,6 +41,7 @@ public class UsersService
             Role = dto.Role
         };
 
+
         _context.Users.Add(user);
         await _context.SaveChangesAsync();
 
@@ -59,12 +60,8 @@ public class UsersService
         if (dniInUse)
             throw new InvalidOperationException("Ya existe otro usuario con ese DNI");
 
-        if (dto.Points < 0)
-            throw new InvalidOperationException("Los puntos no pueden ser negativos");
-
         user.Dni = dto.Dni;
         user.FullName = dto.FullName;
-        user.Points = dto.Points;
         user.Role = dto.Role;
 
         await _context.SaveChangesAsync();
@@ -99,5 +96,5 @@ public class UsersService
             throw new InvalidOperationException("El nombre completo es obligatorio");
     }
 
-    private static UserDto ToDto(User user) => new(user.Id, user.Dni, user.FullName, user.Points, user.Role);
+    private static UserDto ToDto(User user) => new(user.Id, user.Dni, user.FullName, user.Role);
 }

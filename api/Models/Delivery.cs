@@ -1,4 +1,4 @@
-﻿using shared.Enums;
+using shared.Enums;
 
 namespace api.Models;
 
@@ -10,7 +10,7 @@ public class Delivery
 
     public WasteTypeEnums WasteType { get; set; }
     public decimal QuantityKg { get; set; }
-    public int PointsEarned { get; set; }
+    public decimal AmountPaid { get; set; }
 
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 }

@@ -29,7 +29,6 @@
                 <VerticalStackLayout Spacing="2">
                     <components:InfoRowView x:Name="DniRow" Title="DNI:" />
                     <components:InfoRowView x:Name="FullNameRow" Title="Nombre:" />
-                    <components:InfoRowView x:Name="PointsRow" Title="Puntos:" />
                     <components:InfoRowView x:Name="RoleRow" Title="Rol:" />
                 </VerticalStackLayout>
             </Border>

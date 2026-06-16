@@ -49,7 +49,7 @@ internal partial class RegisterRewardView : BaseView
 
         if (numPoints.Value <= 0)
         {
-            _navigationService.ShowModal("Validación", "Los puntos deben ser mayores a 0.", ModalType.Warning, ModalButtons.OK);
+            _navigationService.ShowModal("Validación", "El precio debe ser mayor a 0.", ModalType.Warning, ModalButtons.OK);
             return;
         }
 
@@ -61,7 +61,7 @@ internal partial class RegisterRewardView : BaseView
 
         try
         {
-            var dto = new RewardCreateDto(name, (int)numPoints.Value, (int)numStock.Value);
+            var dto = new RewardCreateDto(name, numPoints.Value, (int)numStock.Value);
             await _apiClient.CreateRewardAsync(dto);
             _navigationService.ShowModal("Éxito", "Reward registrado correctamente.", ModalType.Success, ModalButtons.OK);
             _navigationService.NavigateTo<RewardsView>();

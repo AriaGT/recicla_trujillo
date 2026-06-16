@@ -17,7 +17,7 @@ public class RewardsService
     public async Task<List<RewardDto>> ListRewards()
     {
         return await _context.Rewards
-            .Select(r => new RewardDto(r.Id, r.Name, r.RequiredPoints, r.Stock))
+            .Select(r => new RewardDto(r.Id, r.Name, r.Price, r.Stock))
             .ToListAsync();
     }
 
@@ -29,7 +29,7 @@ public class RewardsService
 
     public async Task<RewardDto> CreateReward(RewardCreateDto dto)
     {
-        ValidateRewardDto(dto.Name, dto.RequiredPoints, dto.Stock);
+        ValidateRewardDto(dto.Name, dto.Price, dto.Stock);
 
         if (await _context.Rewards.AnyAsync(r => r.Name == dto.Name))
             throw new InvalidOperationException("Ya existe un premio con ese nombre");
@@ -37,7 +37,7 @@ public class RewardsService
         var reward = new Reward
         {
             Name = dto.Name,
-            RequiredPoints = dto.RequiredPoints,
+            Price = dto.Price,
             Stock = dto.Stock
         };
 
@@ -53,14 +53,14 @@ public class RewardsService
         if (reward == null)
             return null;
 
-        ValidateRewardDto(dto.Name, dto.RequiredPoints, dto.Stock);
+        ValidateRewardDto(dto.Name, dto.Price, dto.Stock);
 
         var nameInUse = await _context.Rewards.AnyAsync(r => r.Id != id && r.Name == dto.Name);
         if (nameInUse)
             throw new InvalidOperationException("Ya existe otro premio con ese nombre");
 
         reward.Name = dto.Name;
-        reward.RequiredPoints = dto.RequiredPoints;
+        reward.Price = dto.Price;
         reward.Stock = dto.Stock;
 
         await _context.SaveChangesAsync();
@@ -85,17 +85,17 @@ public class RewardsService
         return await _context.Rewards.FindAsync(id);
     }
 
-    private static void ValidateRewardDto(string name, int requiredPoints, int stock)
+    private static void ValidateRewardDto(string name, decimal price, int stock)
     {
         if (string.IsNullOrWhiteSpace(name))
             throw new InvalidOperationException("El nombre del premio es obligatorio");
 
-        if (requiredPoints <= 0)
-            throw new InvalidOperationException("Los puntos requeridos deben ser mayores que cero");
+        if (price <= 0)
+            throw new InvalidOperationException("El precio debe ser mayor que cero");
 
         if (stock < 0)
             throw new InvalidOperationException("El stock no puede ser negativo");
     }
 
-    private static RewardDto ToDto(Reward reward) => new(reward.Id, reward.Name, reward.RequiredPoints, reward.Stock);
+    private static RewardDto ToDto(Reward reward) => new(reward.Id, reward.Name, reward.Price, reward.Stock);
 }

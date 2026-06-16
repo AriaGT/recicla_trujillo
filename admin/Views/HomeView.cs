@@ -28,14 +28,24 @@ internal partial class HomeView : BaseView
         _navigationService.NavigateTo<RewardsView>();
     }
 
-    private void btnRedeemValidator_Click(object? sender, EventArgs e)
+    private void btnSales_Click(object? sender, EventArgs e)
     {
-        _navigationService.NavigateTo<RedemptionsView>();
+        _navigationService.NavigateTo<SalesView>();
     }
 
     private void btnUsers_Click(object? sender, EventArgs e)
     {
         _navigationService.NavigateTo<UsersView>();
+    }
+
+    private void btnCaja_Click(object? sender, EventArgs e)
+    {
+        _navigationService.NavigateTo<CajaView>();
+    }
+
+    private void btnAcopio_Click(object? sender, EventArgs e)
+    {
+        _navigationService.NavigateTo<AcopioView>();
     }
 
     private void btnLogout_Click(object? sender, EventArgs e)

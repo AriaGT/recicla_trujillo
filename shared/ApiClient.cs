@@ -94,32 +94,43 @@ public sealed class ApiClient : IDisposable
     public async Task<bool> DeleteDeliveryAsync(int id, CancellationToken cancellationToken = default)
         => await DeleteAsync($"api/deliveries/{id}", cancellationToken);
 
-    public async Task<List<RedemptionDto>> GetRedemptionsAsync(CancellationToken cancellationToken = default)
-        => await GetListAsync<RedemptionDto>("api/redemptions", cancellationToken);
+    public async Task<List<SaleDto>> GetSalesAsync(CancellationToken cancellationToken = default)
+        => await GetListAsync<SaleDto>("api/sales", cancellationToken);
 
-    public async Task<NodeList<RedemptionDto>> GetRedemptionsNodeListAsync(CancellationToken cancellationToken = default)
-        => await GetNodeListAsync<RedemptionDto>("api/redemptions", cancellationToken);
+    public async Task<NodeList<SaleDto>> GetSalesNodeListAsync(CancellationToken cancellationToken = default)
+        => await GetNodeListAsync<SaleDto>("api/sales", cancellationToken);
 
-    public async Task<RedemptionDto?> GetRedemptionByIdAsync(int id, CancellationToken cancellationToken = default)
-        => await GetByIdAsync<RedemptionDto>($"api/redemptions/{id}", cancellationToken);
+    public async Task<SaleDto?> GetSaleByIdAsync(int id, CancellationToken cancellationToken = default)
+        => await GetByIdAsync<SaleDto>($"api/sales/{id}", cancellationToken);
 
-    public async Task<RedemptionDto> CreateRedemptionAsync(RedemptionCreateDto dto, CancellationToken cancellationToken = default)
-        => await PostAsync<RedemptionCreateDto, RedemptionDto>("api/redemptions", dto, cancellationToken);
+    public async Task<SaleDto> CreateSaleAsync(SaleCreateDto dto, CancellationToken cancellationToken = default)
+        => await PostAsync<SaleCreateDto, SaleDto>("api/sales", dto, cancellationToken);
 
-    public async Task<bool> DeleteRedemptionAsync(int id, CancellationToken cancellationToken = default)
-        => await DeleteAsync($"api/redemptions/{id}", cancellationToken);
+    public async Task<bool> DeleteSaleAsync(int id, CancellationToken cancellationToken = default)
+        => await DeleteAsync($"api/sales/{id}", cancellationToken);
 
-    public async Task<RedemptionDto?> ValidateRedemptionByCodeAsync(string code, CancellationToken cancellationToken = default)
+    public async Task<SaleDto?> ValidateSaleByCodeAsync(string code, CancellationToken cancellationToken = default)
     {
         var encoded = Uri.EscapeDataString(code);
-        var response = await _httpClient.GetAsync($"api/redemptions/validate?code={encoded}", cancellationToken);
+        var response = await _httpClient.GetAsync($"api/sales/validate?code={encoded}", cancellationToken);
 
         if (response.StatusCode == HttpStatusCode.NotFound)
             return null;
 
         await EnsureBusinessSuccessAsync(response, cancellationToken);
-        return await response.Content.ReadFromJsonAsync<RedemptionDto>(_jsonOptions, cancellationToken);
+        return await response.Content.ReadFromJsonAsync<SaleDto>(_jsonOptions, cancellationToken);
     }
+
+    public async Task<CashSummaryDto> GetCashSummaryAsync(CancellationToken cancellationToken = default)
+    {
+        var response = await _httpClient.GetAsync("api/cash/summary", cancellationToken);
+        await EnsureBusinessSuccessAsync(response, cancellationToken);
+        return await response.Content.ReadFromJsonAsync<CashSummaryDto>(_jsonOptions, cancellationToken)
+            ?? new CashSummaryDto(0, 0, 0);
+    }
+
+    public async Task<List<CashMovementDto>> GetCashMovementsAsync(CancellationToken cancellationToken = default)
+        => await GetListAsync<CashMovementDto>("api/cash/movements", cancellationToken);
     private async Task<NodeList<T>> GetNodeListAsync<T>(string endpoint, CancellationToken cancellationToken)
     {
         var response = await _httpClient.GetAsync(endpoint, cancellationToken);

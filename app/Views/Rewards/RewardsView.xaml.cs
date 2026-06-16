@@ -30,7 +30,6 @@ public partial class RewardsView : ContentPage
 
     private async Task LoadRewardsAsync()
     {
-        RefreshUserInfo();
         RewardsContainer.Children.Clear();
 
         try
@@ -46,7 +45,7 @@ public partial class RewardsView : ContentPage
                 {
                     RewardId = reward.Id,
                     RewardName = reward.Name,
-                    RequiredPointsText = $"Precio: {reward.RequiredPoints} pts",
+                    PriceText = $"Precio: S/ {reward.Price:0.00}",
                     StockText = $"Stock: {reward.Stock}",
                     Stock = reward.Stock
                 };
@@ -93,31 +92,19 @@ public partial class RewardsView : ContentPage
             return;
         }
 
-        if (user.Points < reward.RequiredPoints)
-        {
-            StatusLabel.TextColor = Colors.Red;
-            StatusLabel.Text = "No tienes puntos suficientes";
-            return;
-        }
-
         try
         {
-            await _apiClient.CreateRedemptionAsync(new RedemptionCreateDto(user.Id, reward.Id, reward.RequiredPoints));
+            var sale = await _apiClient.CreateSaleAsync(new SaleCreateDto(user.Id, reward.Id));
 
-            var refreshedUser = await _apiClient.GetUserByIdAsync(user.Id);
-            if (refreshedUser != null)
-            {
-                _currentUserState.Set(new AuthSessionDto(refreshedUser.Id, refreshedUser.FullName, refreshedUser.Role), refreshedUser);
-            }
-
-            RefreshUserInfo();
             StatusLabel.TextColor = Colors.Green;
-            StatusLabel.Text = $"Canje registrado: {reward.Name}";
+            StatusLabel.IsVisible = true;
+            StatusLabel.Text = $"Compra registrada: {reward.Name} — código {sale.Code}";
             await LoadRewardsAsync();
         }
         catch (Exception ex)
         {
             StatusLabel.TextColor = Colors.Red;
+            StatusLabel.IsVisible = true;
             StatusLabel.Text = ex.Message;
         }
     }
@@ -134,11 +121,5 @@ public partial class RewardsView : ContentPage
         }
 
         return null;
-    }
-
-    private void RefreshUserInfo()
-    {
-        var user = _currentUserState.User;
-        UserPointsLabel.Text = user is null ? "Puntos: -" : $"Tus puntos: {user.Points}";
     }
 }

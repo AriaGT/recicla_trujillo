@@ -16,12 +16,12 @@
                    FontAttributes="Bold"
                    FontSize="18"
                    TextColor="{DynamicResource PrimaryDarkText}" />
-            <Label Text="{Binding RequiredPointsText, Source={RelativeSource AncestorType={x:Type ContentView}}}"
+            <Label Text="{Binding PriceText, Source={RelativeSource AncestorType={x:Type ContentView}}}"
                    TextColor="{DynamicResource PrimaryDarkText}" />
             <Label Text="{Binding StockText, Source={RelativeSource AncestorType={x:Type ContentView}}}"
                    TextColor="{DynamicResource PrimaryDarkText}" />
             <Button x:Name="RedeemButton"
-                    Text="Canjear"
+                    Text="Comprar"
                     BackgroundColor="{DynamicResource Primary}"
                     TextColor="{DynamicResource White}"
                     Clicked="OnRedeemClicked" />

@@ -48,7 +48,9 @@ internal static class Program
         builder.Services.AddTransient<RegisterDeliveryView>();
         builder.Services.AddTransient<RewardsView>();
         builder.Services.AddTransient<RegisterRewardView>();
-        builder.Services.AddTransient<RedemptionsView>();
+        builder.Services.AddTransient<SalesView>();
+        builder.Services.AddTransient<CajaView>();
+        builder.Services.AddTransient<AcopioView>();
         builder.Services.AddTransient<UsersView>();
         builder.Services.AddTransient<RegisterUserView>();
 

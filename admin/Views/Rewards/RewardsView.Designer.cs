@@ -152,7 +152,7 @@ partial class RewardsView
         // RequiredPoints
         // 
         RequiredPoints.FillWeight = 90F;
-        RequiredPoints.HeaderText = "Puntos";
+        RequiredPoints.HeaderText = "Precio (S/)";
         RequiredPoints.Name = "RequiredPoints";
         RequiredPoints.ReadOnly = true;
         // 

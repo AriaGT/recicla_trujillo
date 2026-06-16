@@ -52,6 +52,6 @@ public class AuthService
         _context.Users.Add(user);
         await _context.SaveChangesAsync();
 
-        return new UserDto(user.Id, user.Dni, user.FullName, user.Points, user.Role);
+        return new UserDto(user.Id, user.Dni, user.FullName, user.Role);
     }
 }

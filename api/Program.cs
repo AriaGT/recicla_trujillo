@@ -18,11 +18,12 @@ builder.Services.AddControllers()
     });
 
 // Services
-builder.Services.AddScoped<PointsService>();
+builder.Services.AddScoped<PricingService>();
 builder.Services.AddScoped<DeliveryService>();
 builder.Services.AddScoped<UsersService>();
 builder.Services.AddScoped<RewardsService>();
-builder.Services.AddScoped<RedemptionService>();
+builder.Services.AddScoped<SaleService>();
+builder.Services.AddScoped<CashService>();
 builder.Services.AddScoped<AuthService>();
 
 // Database

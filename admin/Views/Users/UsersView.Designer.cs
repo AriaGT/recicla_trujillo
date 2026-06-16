@@ -21,17 +21,19 @@ partial class UsersView
         btnRegister = new admin.Components.PrimaryButton();
         btnBack = new admin.Components.PrimaryButton();
         btnRefresh = new admin.Components.PrimaryButton();
+        txtSearch = new admin.Components.Input();
+        btnSearch = new admin.Components.PrimaryButton();
+        lblSearchResult = new Label();
         dgvUsers = new admin.Components.Table();
         Id = new DataGridViewTextBoxColumn();
         Dni = new DataGridViewTextBoxColumn();
         FullName = new DataGridViewTextBoxColumn();
         Role = new DataGridViewTextBoxColumn();
-        Points = new DataGridViewTextBoxColumn();
         ((System.ComponentModel.ISupportInitialize)dgvUsers).BeginInit();
         SuspendLayout();
-        // 
+        //
         // lblTitle
-        // 
+        //
         lblTitle.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
         lblTitle.AutoSize = true;
         lblTitle.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
@@ -41,9 +43,9 @@ partial class UsersView
         lblTitle.Size = new Size(84, 25);
         lblTitle.TabIndex = 0;
         lblTitle.Text = "Usuarios";
-        // 
+        //
         // btnRegister
-        // 
+        //
         btnRegister.BackColor = Color.DarkSlateBlue;
         btnRegister.FlatAppearance.BorderSize = 0;
         btnRegister.FlatStyle = FlatStyle.Flat;
@@ -59,9 +61,9 @@ partial class UsersView
         btnRegister.Text = "Registrar usuario";
         btnRegister.UseVisualStyleBackColor = false;
         btnRegister.Click += btnRegister_Click;
-        // 
+        //
         // btnBack
-        // 
+        //
         btnBack.BackColor = Color.IndianRed;
         btnBack.FlatAppearance.BorderSize = 0;
         btnBack.FlatStyle = FlatStyle.Flat;
@@ -77,9 +79,9 @@ partial class UsersView
         btnBack.Text = "Volver";
         btnBack.UseVisualStyleBackColor = false;
         btnBack.Click += btnBack_Click;
-        // 
+        //
         // btnRefresh
-        // 
+        //
         btnRefresh.BackColor = Color.DarkSlateBlue;
         btnRefresh.FlatAppearance.BorderSize = 0;
         btnRefresh.FlatStyle = FlatStyle.Flat;
@@ -95,9 +97,46 @@ partial class UsersView
         btnRefresh.Text = "Refrescar";
         btnRefresh.UseVisualStyleBackColor = false;
         btnRefresh.Click += btnRefresh_Click;
-        // 
+        //
+        // txtSearch
+        //
+        txtSearch.BackColor = Color.White;
+        txtSearch.Location = new Point(24, 80);
+        txtSearch.Margin = new Padding(4, 2, 4, 2);
+        txtSearch.Name = "txtSearch";
+        txtSearch.Size = new Size(250, 30);
+        txtSearch.TabIndex = 4;
+        //
+        // btnSearch
+        //
+        btnSearch.BackColor = Color.DarkSlateBlue;
+        btnSearch.FlatAppearance.BorderSize = 0;
+        btnSearch.FlatStyle = FlatStyle.Flat;
+        btnSearch.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+        btnSearch.ForeColor = Color.White;
+        btnSearch.HoverColor = Color.SlateBlue;
+        btnSearch.Location = new Point(285, 75);
+        btnSearch.Name = "btnSearch";
+        btnSearch.NormalColor = Color.DarkSlateBlue;
+        btnSearch.Size = new Size(120, 40);
+        btnSearch.TabIndex = 5;
+        btnSearch.TabStop = false;
+        btnSearch.Text = "Buscar";
+        btnSearch.UseVisualStyleBackColor = false;
+        btnSearch.Click += btnSearch_Click;
+        //
+        // lblSearchResult
+        //
+        lblSearchResult.AutoSize = true;
+        lblSearchResult.Font = new Font("Segoe UI", 10F);
+        lblSearchResult.ForeColor = Color.Gray;
+        lblSearchResult.Location = new Point(420, 86);
+        lblSearchResult.Name = "lblSearchResult";
+        lblSearchResult.Size = new Size(0, 19);
+        lblSearchResult.TabIndex = 6;
+        //
         // dgvUsers
-        // 
+        //
         dgvUsers.AllowUserToAddRows = false;
         dgvUsers.AllowUserToResizeRows = false;
         dgvUsers.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
@@ -114,7 +153,7 @@ partial class UsersView
         dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
         dgvUsers.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
         dgvUsers.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-        dgvUsers.Columns.AddRange(new DataGridViewColumn[] { Id, Dni, FullName, Role, Points });
+        dgvUsers.Columns.AddRange(new DataGridViewColumn[] { Id, Dni, FullName, Role });
         dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
         dataGridViewCellStyle2.BackColor = Color.White;
         dataGridViewCellStyle2.Font = new Font("Segoe UI", 10F);
@@ -125,7 +164,7 @@ partial class UsersView
         dgvUsers.DefaultCellStyle = dataGridViewCellStyle2;
         dgvUsers.EnableHeadersVisualStyles = false;
         dgvUsers.GridColor = Color.FromArgb(235, 235, 235);
-        dgvUsers.Location = new Point(24, 92);
+        dgvUsers.Location = new Point(24, 130);
         dgvUsers.Margin = new Padding(4, 20, 4, 4);
         dgvUsers.MultiSelect = false;
         dgvUsers.Name = "dgvUsers";
@@ -133,50 +172,46 @@ partial class UsersView
         dgvUsers.RowHeadersVisible = false;
         dgvUsers.RowTemplate.Height = 40;
         dgvUsers.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-        dgvUsers.Size = new Size(874, 384);
-        dgvUsers.TabIndex = 4;
-        // 
+        dgvUsers.Size = new Size(874, 346);
+        dgvUsers.TabIndex = 7;
+        //
         // Id
-        // 
+        //
         Id.FillWeight = 30F;
         Id.HeaderText = "ID";
         Id.Name = "Id";
         Id.ReadOnly = true;
-        // 
+        //
         // Dni
-        // 
+        //
         Dni.FillWeight = 80F;
         Dni.HeaderText = "DNI";
         Dni.Name = "Dni";
         Dni.ReadOnly = true;
-        // 
+        //
         // FullName
-        // 
+        //
         FullName.FillWeight = 160F;
         FullName.HeaderText = "Nombre";
         FullName.Name = "FullName";
         FullName.ReadOnly = true;
-        // 
+        //
         // Role
-        // 
+        //
         Role.FillWeight = 80F;
         Role.HeaderText = "Rol";
         Role.Name = "Role";
         Role.ReadOnly = true;
-        // 
-        // Points
-        // 
-        Points.FillWeight = 70F;
-        Points.HeaderText = "Puntos";
-        Points.Name = "Points";
-        Points.ReadOnly = true;
-        // 
+        //
         // UsersView
-        // 
+        //
         AutoScaleDimensions = new SizeF(7F, 15F);
         AutoScaleMode = AutoScaleMode.Font;
         BackColor = Color.White;
         Controls.Add(dgvUsers);
+        Controls.Add(lblSearchResult);
+        Controls.Add(btnSearch);
+        Controls.Add(txtSearch);
         Controls.Add(btnRefresh);
         Controls.Add(btnBack);
         Controls.Add(btnRegister);
@@ -196,10 +231,12 @@ partial class UsersView
     private Components.PrimaryButton btnRegister;
     private Components.PrimaryButton btnBack;
     private Components.PrimaryButton btnRefresh;
+    private Components.Input txtSearch;
+    private Components.PrimaryButton btnSearch;
+    private Label lblSearchResult;
     private Components.Table dgvUsers;
     private DataGridViewTextBoxColumn Id;
     private DataGridViewTextBoxColumn Dni;
     private DataGridViewTextBoxColumn FullName;
     private DataGridViewTextBoxColumn Role;
-    private DataGridViewTextBoxColumn Points;
 }

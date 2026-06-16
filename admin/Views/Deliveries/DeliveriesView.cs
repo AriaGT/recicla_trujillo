@@ -67,7 +67,7 @@ internal partial class DeliveriesView : BaseView
                     $"{delivery.User.FullName} ({delivery.User.Dni})",
                     WasteTypeLabels[delivery.WasteType],
                     delivery.QuantityKg,
-                    delivery.PointsEarned
+                    delivery.AmountPaid.ToString("0.00")
                 );
                 current = current.Next;
             }

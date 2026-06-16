@@ -71,7 +71,7 @@ partial class RegisterRewardView
         lblPoints.Name = "lblPoints";
         lblPoints.Size = new Size(55, 19);
         lblPoints.TabIndex = 3;
-        lblPoints.Text = "Puntos";
+        lblPoints.Text = "Precio (S/)";
         // 
         // lblStock
         // 
@@ -97,7 +97,7 @@ partial class RegisterRewardView
         // numPoints
         // 
         numPoints.BackColor = Color.White;
-        numPoints.DecimalPlaces = 0;
+        numPoints.DecimalPlaces = 2;
         numPoints.Location = new Point(23, 148);
         numPoints.Margin = new Padding(4, 2, 4, 2);
         numPoints.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
